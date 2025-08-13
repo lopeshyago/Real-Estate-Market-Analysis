@@ -71,40 +71,55 @@ if 'place_name' in df.columns and 'price' in df.columns and pd.api.types.is_nume
 else:
     st.warning("Column 'place_name' or numeric 'price' data not found in data.")
 
+
 # Bedrooms vs Price
 st.subheader("Relationship Between Number of Bedrooms and Price")
-fig, ax = plt.subplots(figsize=(8,6))
-sns.scatterplot(x='rooms', y='price', data=filtered_df, ax=ax)
-ax.set_title('Bedrooms vs Price')
-ax.set_xlabel('Bedrooms')
-ax.set_ylabel('Price')
-st.pyplot(fig)
+if ('rooms' in filtered_df.columns and 'price' in filtered_df.columns and
+    pd.api.types.is_numeric_dtype(filtered_df['rooms']) and
+    pd.api.types.is_numeric_dtype(filtered_df['price']) and
+    filtered_df['rooms'].notnull().any() and filtered_df['price'].notnull().any()):
+    fig, ax = plt.subplots(figsize=(8,6))
+    sns.scatterplot(x='rooms', y='price', data=filtered_df, ax=ax)
+    ax.set_title('Bedrooms vs Price')
+    ax.set_xlabel('Bedrooms')
+    ax.set_ylabel('Price')
+    st.pyplot(fig)
+else:
+    st.warning("Columns 'rooms' and/or 'price' not found or not numeric in data.")
+
 
 # Pet-Friendly and Furnished Properties
 st.subheader("Proportion of Pet-Friendly and Furnished Properties")
-df['pet_friendly'] = df['description'].str.contains('pet|animal', case=False, na=False)
-df['furnished'] = df['description'].str.contains('mobiliado|furnished', case=False, na=False)
-pet_counts = df['pet_friendly'].value_counts()
-furnished_counts = df['furnished'].value_counts()
-fig, ax = plt.subplots(1,2,figsize=(10,5))
-pet_counts.plot.pie(autopct='%1.1f%%', labels=['No', 'Yes'], colors=['lightgray','gold'], ax=ax[0])
-ax[0].set_title('Pet-Friendly Properties')
-ax[0].set_ylabel('')
-furnished_counts.plot.pie(autopct='%1.1f%%', labels=['No', 'Yes'], colors=['lightgray','skyblue'], ax=ax[1])
-ax[1].set_title('Furnished Properties')
-ax[1].set_ylabel('')
-st.pyplot(fig)
+if 'description' in df.columns:
+    df['pet_friendly'] = df['description'].str.contains('pet|animal', case=False, na=False)
+    df['furnished'] = df['description'].str.contains('mobiliado|furnished', case=False, na=False)
+    pet_counts = df['pet_friendly'].value_counts()
+    furnished_counts = df['furnished'].value_counts()
+    fig, ax = plt.subplots(1,2,figsize=(10,5))
+    pet_counts.plot.pie(autopct='%1.1f%%', labels=['No', 'Yes'], colors=['lightgray','gold'], ax=ax[0])
+    ax[0].set_title('Pet-Friendly Properties')
+    ax[0].set_ylabel('')
+    furnished_counts.plot.pie(autopct='%1.1f%%', labels=['No', 'Yes'], colors=['lightgray','skyblue'], ax=ax[1])
+    ax[1].set_title('Furnished Properties')
+    ax[1].set_ylabel('')
+    st.pyplot(fig)
+else:
+    st.warning("Column 'description' not found in data.")
+
 
 # Heatmap of Listing Concentration
 st.subheader("Heatmap of Listing Concentration")
-df_map = df.dropna(subset=['lat','lon'])
-if not df_map.empty:
-    m = folium.Map(location=[-22.9, -43.2], zoom_start=11)
-    heat_data = [[row['lat'], row['lon']] for idx, row in df_map.iterrows()]
-    folium.plugins.HeatMap(heat_data).add_to(m)
-    st_folium(m, width=700, height=500)
+if 'lat' in df.columns and 'lon' in df.columns:
+    df_map = df.dropna(subset=['lat','lon'])
+    if not df_map.empty:
+        m = folium.Map(location=[-22.9, -43.2], zoom_start=11)
+        heat_data = [[row['lat'], row['lon']] for idx, row in df_map.iterrows()]
+        folium.plugins.HeatMap(heat_data).add_to(m)
+        st_folium(m, width=700, height=500)
+    else:
+        st.info("Not enough location data to generate the heatmap.")
 else:
-    st.info("Not enough location data to generate the heatmap.")
+    st.info("Columns 'lat' and/or 'lon' not found in data.")
 
 st.markdown("---")
 st.markdown("**Project by Hyago Lopes | Data Source: Properati Brazil**")
