@@ -8,7 +8,7 @@ Quick overview of the Rio de Janeiro rental market dataset: columns and sample d
 import pandas as pd
 
 # Path to the CSV file
-csv_path = r"dataset/data/properati_br_2016_11_01_properties_rent.csv"
+csv_path = "https://docs.google.com/spreadsheets/d/1rOF77iN8ZWRxaqCbZ-E3Mh0ord3uBb7kVQGPdD-GtZ4/export?format=csv"
 
 # Read the first 20 rows to explore the dataset
 df = pd.read_csv(csv_path, nrows=20)

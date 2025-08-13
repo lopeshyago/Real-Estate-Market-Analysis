@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Path to the CSV file
-csv_path = r"dataset/data/properati_br_2016_11_01_properties_rent.csv"
+csv_path = "https://docs.google.com/spreadsheets/d/1rOF77iN8ZWRxaqCbZ-E3Mh0ord3uBb7kVQGPdD-GtZ4/export?format=csv"
 
 # Read a larger sample for analysis
 sample_size = 10000

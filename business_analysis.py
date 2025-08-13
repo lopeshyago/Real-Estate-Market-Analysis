@@ -12,7 +12,7 @@ import seaborn as sns
 
 
 # Path to the data file
-csv_path = r"dataset/data/properati_br_2016_11_01_properties_rent.csv"
+csv_path = "https://docs.google.com/spreadsheets/d/1rOF77iN8ZWRxaqCbZ-E3Mh0ord3uBb7kVQGPdD-GtZ4/export?format=csv"
 sample_size = 10000
 
 # Load a sample from the dataset

@@ -55,12 +55,11 @@ The analysis shows that location, size, and property features are key determinan
 
 ## Dataset
 
-This repository includes a small sample dataset (`sample_rio_rentals.csv`) for demonstration purposes.
 
-To use the full dataset, download it from Kaggle:
-https://www.kaggle.com/datasets/mpwolke/brazil-real-state-listings
+This project now loads the data directly from Google Sheets:
+https://docs.google.com/spreadsheets/d/1rOF77iN8ZWRxaqCbZ-E3Mh0ord3uBb7kVQGPdD-GtZ4/export?format=csv
 
-Place the downloaded file in the `dataset/data/` directory, or update the code paths as needed.
+No need to download or place files manually. All scripts and the dashboard will fetch the latest data automatically from this link.
 
 ## How to Run the Interactive Dashboard
 
