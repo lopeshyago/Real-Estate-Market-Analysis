@@ -20,7 +20,8 @@ df = pd.read_csv(csv_path, nrows=sample_size)
 
 # Basic cleaning: remove rows without price and fill missing expenses
 df = df[df['price'].notnull()]
-df['expenses'] = df['expenses'].fillna(0)
+if 'expenses' in df.columns:
+    df['expenses'] = df['expenses'].fillna(0)
 
 # 1. Top 5 most expensive/cheapest neighborhoods
 # Calculate average price per neighborhood

@@ -17,7 +17,8 @@ csv_path = "https://docs.google.com/spreadsheets/d/1rOF77iN8ZWRxaqCbZ-E3Mh0ord3u
 sample_size = 10000
 df = pd.read_csv(csv_path, nrows=sample_size)
 df = df[df['price'].notnull()]
-df['expenses'] = df['expenses'].fillna(0)
+if 'expenses' in df.columns:
+    df['expenses'] = df['expenses'].fillna(0)
 
 # Sidebar filters
 st.sidebar.header("Filters")

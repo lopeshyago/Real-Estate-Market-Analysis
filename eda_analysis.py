@@ -24,7 +24,8 @@ print("Missing values per column:\n", missing)
 # Example: fill 'expenses' with 0 for residential rentals
 # Example: remove rows without 'price'
 df = df[df['price'].notnull()]
-df['expenses'] = df['expenses'].fillna(0)
+if 'expenses' in df.columns:
+    df['expenses'] = df['expenses'].fillna(0)
 
 # 2. Outlier detection in price
 plt.figure(figsize=(10,4))

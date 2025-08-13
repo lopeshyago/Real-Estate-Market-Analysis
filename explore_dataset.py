@@ -10,8 +10,11 @@ import pandas as pd
 # Path to the CSV file
 csv_path = "https://docs.google.com/spreadsheets/d/1rOF77iN8ZWRxaqCbZ-E3Mh0ord3uBb7kVQGPdD-GtZ4/export?format=csv"
 
+
 # Read the first 20 rows to explore the dataset
 df = pd.read_csv(csv_path, nrows=20)
+if 'expenses' in df.columns:
+    df['expenses'] = df['expenses'].fillna(0)
 
 # Display available columns and sample data
 def quick_overview():
