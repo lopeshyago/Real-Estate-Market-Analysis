@@ -13,7 +13,7 @@ This dashboard presents key insights from the exploratory analysis of Rio de Jan
 """)
 
 # Load data
-csv_path = "sample_rio_rentals.csv"
+csv_path = "https://docs.google.com/spreadsheets/d/1rOF77iN8ZWRxaqCbZ-E3Mh0ord3uBb7kVQGPdD-GtZ4"
 sample_size = 10000
 df = pd.read_csv(csv_path, nrows=sample_size)
 df = df[df['price'].notnull()]
