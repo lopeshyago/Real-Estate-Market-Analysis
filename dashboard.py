@@ -22,12 +22,20 @@ if 'expenses' in df.columns:
 
 # Sidebar filters
 st.sidebar.header("Filters")
-selected_neighborhoods = st.sidebar.multiselect(
-    "Select neighborhoods:",
-    options=df['place_name'].unique(),
-    default=df['place_name'].unique()[:5]
-)
-filtered_df = df[df['place_name'].isin(selected_neighborhoods)] if selected_neighborhoods else df
+
+# Sidebar filters
+st.sidebar.header("Filters")
+if 'place_name' in df.columns:
+    neighborhoods = df['place_name'].dropna().unique()
+    selected_neighborhoods = st.sidebar.multiselect(
+        "Select neighborhoods:",
+        options=neighborhoods,
+        default=neighborhoods[:5]
+    )
+    filtered_df = df[df['place_name'].isin(selected_neighborhoods)] if selected_neighborhoods else df
+else:
+    st.sidebar.warning("Column 'place_name' not found in data.")
+    filtered_df = df
 
 # Price Distribution
 st.subheader("Rental Price Distribution")
