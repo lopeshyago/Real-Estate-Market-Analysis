@@ -1,0 +1,30 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+realstatebr/
+venv/
+.env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Data files (large or raw)
+dataset/
+*.csv
+*.xlsx
+*.parquet
+*.h5
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Streamlit and cache
+.streamlit/
+
+# VS Code
+.vscode/
+
