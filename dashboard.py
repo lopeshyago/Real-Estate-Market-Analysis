@@ -51,21 +51,25 @@ if 'price' in filtered_df.columns and pd.api.types.is_numeric_dtype(filtered_df[
 else:
     st.warning("No numeric price data available to plot.")
 
+
 # Top Neighborhoods
 st.subheader("Top 5 Most Expensive and Cheapest Neighborhoods")
-mean_price_by_bairro = df.groupby('place_name')['price'].mean().sort_values(ascending=False)
-top5_expensive = mean_price_by_bairro.head(5)
-top5_cheap = mean_price_by_bairro.tail(5)
-fig, ax = plt.subplots(1,2,figsize=(12,4))
-top5_expensive.plot(kind='bar', color='crimson', ax=ax[0])
-ax[0].set_title('Top 5 Most Expensive Neighborhoods')
-ax[0].set_ylabel('Average Price')
-ax[0].tick_params(axis='x', rotation=45)
-top5_cheap.plot(kind='bar', color='seagreen', ax=ax[1])
-ax[1].set_title('Top 5 Cheapest Neighborhoods')
-ax[1].set_ylabel('Average Price')
-ax[1].tick_params(axis='x', rotation=45)
-st.pyplot(fig)
+if 'place_name' in df.columns and 'price' in df.columns and pd.api.types.is_numeric_dtype(df['price']):
+    mean_price_by_bairro = df.groupby('place_name')['price'].mean().sort_values(ascending=False)
+    top5_expensive = mean_price_by_bairro.head(5)
+    top5_cheap = mean_price_by_bairro.tail(5)
+    fig, ax = plt.subplots(1,2,figsize=(12,4))
+    top5_expensive.plot(kind='bar', color='crimson', ax=ax[0])
+    ax[0].set_title('Top 5 Most Expensive Neighborhoods')
+    ax[0].set_ylabel('Average Price')
+    ax[0].tick_params(axis='x', rotation=45)
+    top5_cheap.plot(kind='bar', color='seagreen', ax=ax[1])
+    ax[1].set_title('Top 5 Cheapest Neighborhoods')
+    ax[1].set_ylabel('Average Price')
+    ax[1].tick_params(axis='x', rotation=45)
+    st.pyplot(fig)
+else:
+    st.warning("Column 'place_name' or numeric 'price' data not found in data.")
 
 # Bedrooms vs Price
 st.subheader("Relationship Between Number of Bedrooms and Price")
