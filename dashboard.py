@@ -39,11 +39,17 @@ else:
 
 # Price Distribution
 st.subheader("Rental Price Distribution")
-fig, ax = plt.subplots(figsize=(10,4))
-filtered_df['price'].plot.hist(bins=50, color='skyblue', ax=ax)
-ax.set_title('Rental Price Distribution')
-ax.set_xlabel('Price')
-st.pyplot(fig)
+
+# Price Distribution
+st.subheader("Rental Price Distribution")
+if 'price' in filtered_df.columns and pd.api.types.is_numeric_dtype(filtered_df['price']) and filtered_df['price'].notnull().any():
+    fig, ax = plt.subplots(figsize=(10,4))
+    filtered_df['price'].plot.hist(bins=50, color='skyblue', ax=ax)
+    ax.set_title('Rental Price Distribution')
+    ax.set_xlabel('Price')
+    st.pyplot(fig)
+else:
+    st.warning("No numeric price data available to plot.")
 
 # Top Neighborhoods
 st.subheader("Top 5 Most Expensive and Cheapest Neighborhoods")
